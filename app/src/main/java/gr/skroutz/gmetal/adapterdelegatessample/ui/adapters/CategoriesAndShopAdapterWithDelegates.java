@@ -30,7 +30,7 @@ public class CategoriesAndShopAdapterWithDelegates extends BaseAdapterWithDelega
         addData(data);
         mShop = shop;
         mAdapterDelegateManager.addDelegate(new LeafCategoriesAdapterDelegate(mContext, mInflater, mClickListener));
-        mAdapterDelegateManager.addDelegate(new CategoriesAdapterDelegate(mContext, mInflater, mClickListener));
+        mAdapterDelegateManager.setFallbackDelegate(new CategoriesAdapterDelegate(mContext, mInflater, mClickListener));
         mShopAdapterDelegate = new ShopAdapterDelegate(mContext, mInflater, mClickListener);
     }
 
