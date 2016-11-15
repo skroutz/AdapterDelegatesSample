@@ -29,7 +29,7 @@ public class ShopAdapterDelegate implements AdapterDelegate<Shop> {
     @Override
     public boolean isForViewType(@NonNull final Shop items, final int position) {
 
-        return position == 0;
+        return true;
     }
 
     @NonNull
