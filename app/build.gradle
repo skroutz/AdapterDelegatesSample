@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "gr.skroutz.gmetal.adapterdelegatessample"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,10 +24,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile "com.android.support:appcompat-v7:$rootProject.ext.appCompatVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.appCompatVersion"
 
-    compile 'com.hannesdorfmann:adapterdelegates2:2.0.1'
+    compile 'com.hannesdorfmann:adapterdelegates3:3.0.1'
 
     testCompile 'junit:junit:4.12'
 }

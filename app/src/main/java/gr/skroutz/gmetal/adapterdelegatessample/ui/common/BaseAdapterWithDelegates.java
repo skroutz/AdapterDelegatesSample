@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hannesdorfmann.adapterdelegates2.AdapterDelegatesManager;
+import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ public class BaseAdapterWithDelegates<T> extends RecyclerView.Adapter<RecyclerVi
     protected final LayoutInflater mInflater;
     protected final Context mContext;
     protected final AdapterDelegatesManager<List<T>> mAdapterDelegateManager;
+
     // UI
     protected final View.OnClickListener mClickListener;
 

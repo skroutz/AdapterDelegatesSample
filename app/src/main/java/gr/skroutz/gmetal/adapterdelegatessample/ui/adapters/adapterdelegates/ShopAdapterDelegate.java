@@ -8,28 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.hannesdorfmann.adapterdelegates2.AdapterDelegate;
+import java.util.List;
 
 import gr.skroutz.gmetal.adapterdelegatessample.R;
 import gr.skroutz.gmetal.adapterdelegatessample.model.Shop;
 
-public class ShopAdapterDelegate implements AdapterDelegate<Shop> {
+public class ShopAdapterDelegate<T> extends BaseAdapterDelegate<T, ShopAdapterDelegate.ShopViewHolder> {
 
-    private final Context mContext;
-    private final LayoutInflater mInflater;
-    private final View.OnClickListener mClickListener;
+    private Shop mShop;
 
-    public ShopAdapterDelegate(final Context context, final LayoutInflater inflater, final View.OnClickListener clickListener) {
+    public ShopAdapterDelegate(final Context context, final LayoutInflater inflater, final View.OnClickListener clickListener, final Shop shop) {
 
-        mContext = context;
-        mInflater = inflater;
-        mClickListener = clickListener;
+        super(context, inflater, clickListener);
+        mShop = shop;
     }
 
     @Override
-    public boolean isForViewType(@NonNull final Shop items, final int position) {
+    protected boolean isForViewType(@NonNull final T items, final int position) {
 
-        return true;
+        return (position == 0);
     }
 
     @NonNull
@@ -41,11 +38,15 @@ public class ShopAdapterDelegate implements AdapterDelegate<Shop> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final Shop items, final int position, @NonNull final RecyclerView.ViewHolder holder) {
+    protected void onBindViewHolderGeneric(@NonNull final T items, final int position, @NonNull final ShopViewHolder holder, @NonNull List<Object> payloads) {
 
-        ShopViewHolder viewHolder = (ShopViewHolder) holder;
-        viewHolder.shopText.setText(items.name);
-        viewHolder.itemView.setTag(items);
+        holder.shopText.setText(mShop.name);
+        holder.itemView.setTag(mShop);
+    }
+
+    public void setShop(Shop shop) {
+
+        mShop = shop;
     }
 
     static class ShopViewHolder extends RecyclerView.ViewHolder {

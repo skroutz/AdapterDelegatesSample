@@ -8,47 +8,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.hannesdorfmann.adapterdelegates2.AdapterDelegate;
-
 import java.util.List;
 
 import gr.skroutz.gmetal.adapterdelegatessample.R;
 import gr.skroutz.gmetal.adapterdelegatessample.model.Category;
 
-public class CategoriesAdapterDelegate implements AdapterDelegate<List<Category>> {
-
-    protected final Context mContext;
-    protected final LayoutInflater mInflater;
-    protected final View.OnClickListener mClickListener;
+public class CategoriesAdapterDelegate extends BaseAdapterDelegate<List<Category>, CategoriesAdapterDelegate.CategoriesViewHolder> {
 
     public CategoriesAdapterDelegate(final Context context, final LayoutInflater inflater, final View.OnClickListener clickListener) {
 
-        mContext = context;
-        mInflater = inflater;
-        mClickListener = clickListener;
+        super(context, inflater, clickListener);
     }
 
     @Override
-    public boolean isForViewType(@NonNull final List<Category> items, final int position) {
+    protected boolean isForViewType(@NonNull final List<Category> items, final int position) {
 
         return true;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent) {
+    protected RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent) {
 
         return new CategoriesViewHolder(mInflater.inflate(R.layout.cell_category, parent, false), mClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final List<Category> items, final int position, @NonNull final RecyclerView.ViewHolder holder) {
+    protected void onBindViewHolderGeneric(@NonNull final List<Category> items, final int position, @NonNull final CategoriesViewHolder holder, @NonNull List<Object> payloads) {
 
-        CategoriesViewHolder viewHolder = (CategoriesViewHolder) holder;
         Category category = items.get(position);
 
-        viewHolder.categoryText.setText(category.name);
-        viewHolder.itemView.setTag(category);
+        holder.categoryText.setText(category.name);
+        holder.itemView.setTag(category);
     }
 
     static class CategoriesViewHolder extends RecyclerView.ViewHolder {

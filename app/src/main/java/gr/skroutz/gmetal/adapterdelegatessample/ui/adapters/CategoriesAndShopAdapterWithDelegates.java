@@ -19,19 +19,15 @@ public class CategoriesAndShopAdapterWithDelegates extends BaseAdapterWithDelega
 
     private static final int SHOP_VIEW_TYPE = 1001;
 
-    private final Shop mShop;
-    private ShopAdapterDelegate mShopAdapterDelegate;
-
     public CategoriesAndShopAdapterWithDelegates(final Context context, final LayoutInflater layoutInflater,
                                                  final View.OnClickListener onClickListener,
                                                  final List<Category> data, final Shop shop) {
 
         super(context, layoutInflater, onClickListener);
         addData(data);
-        mShop = shop;
         mAdapterDelegateManager.addDelegate(new LeafCategoriesAdapterDelegate(mContext, mInflater, mClickListener));
+        mAdapterDelegateManager.addDelegate(SHOP_VIEW_TYPE, new ShopAdapterDelegate<List<Category>>(mContext, mInflater, mClickListener, shop));
         mAdapterDelegateManager.setFallbackDelegate(new CategoriesAdapterDelegate(mContext, mInflater, mClickListener));
-        mShopAdapterDelegate = new ShopAdapterDelegate(mContext, mInflater, mClickListener);
     }
 
     @Override
@@ -40,26 +36,25 @@ public class CategoriesAndShopAdapterWithDelegates extends BaseAdapterWithDelega
         if (position == 0) {
             return SHOP_VIEW_TYPE;
         }
-        return super.getItemViewType(position);
+        return super.getItemViewType(position - 1);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
 
-        if (viewType == SHOP_VIEW_TYPE) {
-            return mShopAdapterDelegate.onCreateViewHolder(parent);
-        }
         return mAdapterDelegateManager.onCreateViewHolder(parent, viewType);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
-        if (holder.getItemViewType() == SHOP_VIEW_TYPE) {
-            mShopAdapterDelegate.onBindViewHolder(mShop, 0, holder);
-        } else {
-            mAdapterDelegateManager.onBindViewHolder(mData, position, holder);
-        }
+        int realDataPosition = (holder.getItemViewType() != SHOP_VIEW_TYPE) ? position - 1 : position;
+        mAdapterDelegateManager.onBindViewHolder(mData, realDataPosition, holder);
     }
 
+    @Override
+    public int getItemCount() {
+
+        return super.getItemCount() + 1;
+    }
 }

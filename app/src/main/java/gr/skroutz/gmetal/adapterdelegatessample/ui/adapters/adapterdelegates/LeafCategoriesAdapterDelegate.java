@@ -28,14 +28,14 @@ public class LeafCategoriesAdapterDelegate extends CategoriesAdapterDelegate {
     }
 
     @Override
-    public boolean isForViewType(@NonNull final List<Category> items, final int position) {
+    protected boolean isForViewType(@NonNull final List<Category> items, final int position) {
 
         return items.get(position).isLeaf;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent) {
+    protected RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent) {
 
         return new LeafCategoryViewHolder(
                 mInflater.inflate(R.layout.cell_leaf_category,
@@ -43,9 +43,9 @@ public class LeafCategoriesAdapterDelegate extends CategoriesAdapterDelegate {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final List<Category> items, final int position, @NonNull final RecyclerView.ViewHolder holder) {
+    protected void onBindViewHolderGeneric(@NonNull final List<Category> items, final int position, @NonNull final CategoriesViewHolder holder, @NonNull List<Object> payloads) {
 
-        super.onBindViewHolder(items, position, holder);
+        super.onBindViewHolderGeneric(items, position, holder, payloads);
         LeafCategoryViewHolder viewHolder = (LeafCategoryViewHolder) holder;
         if (position % 2 == 0) {
             viewHolder.categoryIcon.setImageDrawable(mPlayDrawable);
