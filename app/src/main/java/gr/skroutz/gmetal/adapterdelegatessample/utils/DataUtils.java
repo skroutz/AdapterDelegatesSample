@@ -1,10 +1,9 @@
 package gr.skroutz.gmetal.adapterdelegatessample.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gr.skroutz.gmetal.adapterdelegatessample.model.Category;
 import gr.skroutz.gmetal.adapterdelegatessample.model.Shop;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataUtils {
 

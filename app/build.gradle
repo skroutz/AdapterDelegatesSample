@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     buildToolsVersion rootProject.ext.buildToolsVersion
 }
 
@@ -28,6 +32,9 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$rootProject.ext.appCompatVersion"
 
     implementation 'com.hannesdorfmann:adapterdelegates3:3.0.1'
+
+    implementation "android.arch.lifecycle:extensions:$rootProject.ext.archComponentsVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.ext.archComponentsVersion"
 
     testImplementation 'junit:junit:4.12'
 }
